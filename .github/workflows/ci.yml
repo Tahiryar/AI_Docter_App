@@ -23,10 +23,10 @@ jobs:
       - name: Run tests
         run: npm test
 
-      # Step 5: Build the project (if applicable)
+      # Step 5: Build the project
       - name: Build the project
         run: npm run build
 
-      # Step 6: Start the development server
+      # Step 6: Start the development server (background mein)
       - name: Start development server
-        run: npm run start
+        run: npm run start &
