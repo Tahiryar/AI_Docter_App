@@ -1,15 +1,32 @@
-name: CI
-on: [push]
+name: CI # Workflow ka naam
+on: [push] # Trigger workflow jab bhi code push ho
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  test: # Job ka naam
+    runs-on: ubuntu-latest # Job kis OS par run hoga (GitHub Actions ka default OS)
+
     steps:
+      # Step 1: Code ko repository se checkout karein
       - uses: actions/checkout@v2
+
+      # Step 2: Node.js set up karein
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '22' # Aapka Node.js version (v22.14.0)
+
+      # Step 3: Dependencies install karein
       - name: Install dependencies
         run: npm install
+
+      # Step 4: Tests run karein
       - name: Run tests
         run: npm test
+
+      # Step 5: Build the project (if applicable)
+      - name: Build the project
+        run: npm run build
+
+      # Step 6: Start the development server
+      - name: Start development server
+        run: npm run start
