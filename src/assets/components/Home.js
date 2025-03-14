@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   // Inline styles
@@ -35,6 +36,16 @@ const Home = () => {
       color: 'transparent',
       animation: 'shine 3s linear infinite', // Shine animation
     },
+    button: {
+      marginTop: '1rem',
+      padding: '0.5rem 1rem',
+      backgroundColor: '#007bff',
+      color: 'white',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontSize: '1rem',
+    },
   };
 
   // Inline CSS animations
@@ -53,6 +64,9 @@ const Home = () => {
     }
   `;
 
+  // useNavigate hook for redirection
+  const navigate = useNavigate();
+
   return (
     <div style={styles.container}>
       {/* Add inline styles for animations */}
@@ -60,6 +74,11 @@ const Home = () => {
       <div style={styles.content}>
         <h1 style={{ ...styles.typingEffect, ...styles.shineEffect }}>Welcome to AI Doctor</h1>
         <p style={{ ...styles.typingEffect, ...styles.shineEffect }}>Get quick guidance for your health concerns.</p>
+        
+        {/* "Get Started" button */}
+        <button style={styles.button} onClick={() => navigate('/symptom-checker')}>
+          Get Started
+        </button>
       </div>
     </div>
   );
