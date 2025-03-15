@@ -7,6 +7,8 @@ import SymptomChecker from './assets/components/SymptomChecker';
 import Contact from './assets/components/Contact'; // Import Contact component
 import History from './assets/components/History'; // Import History component
 import Footer from './assets/components/Footer'; // Import Footer component
+import Login from './assets/components/Login';
+import Signup from './assets/components/Signup';
 import './App.css';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
            {/*<Route path="/about" element={<About />} / {/* Route for About page */}
           <Route path="/contact" element={<Contact />} /> {/* Route for Contact page */}
           <Route path="/history" element={<History />} /> {/* Route for History page */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer />
       </div>

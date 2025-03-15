@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { diagnoseSymptoms, explainSymptoms, saveChat } from ".../backend/aap/utils/api";
 
 function SymptomChecker() {
   const [symptoms, setSymptoms] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
+  const [explanation, setExplanation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isListening, setIsListening] = useState(false);
@@ -46,19 +48,18 @@ function SymptomChecker() {
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/diagnose", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ symptoms }),
-      });
+      // Fetch diagnosis and explanation using imported functions
+      const diagnosisData = await diagnoseSymptoms(symptoms);
+      setDiagnosis(diagnosisData.diagnosis);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch diagnosis. Please try again.");
-      }
+      const explanationData = await explainSymptoms(symptoms);
+      setExplanation(explanationData.explanation);
 
-      const data = await response.json();
-      setDiagnosis(data.diagnosis);
-      setHistory((prev) => [...prev, { symptoms, diagnosis: data.diagnosis }]);
+      // Save chat history
+      await saveChat("user_id", symptoms, diagnosisData.diagnosis, explanationData.explanation);
+
+      // Save to local history
+      setHistory((prev) => [...prev, { symptoms, diagnosis: diagnosisData.diagnosis }]);
     } catch (err) {
       setError(err.message || "An error occurred. Please try again.");
     } finally {
@@ -172,6 +173,14 @@ function SymptomChecker() {
         <div style={{ marginTop: "20px", padding: "15px", background: "#f9f9f9", borderRadius: "4px" }}>
           <h3 style={{ color: "#333" }}>Diagnosis:</h3>
           <p style={{ color: "#555" }}>{diagnosis}</p>
+        </div>
+      )}
+
+      {/* Explanation */}
+      {explanation && (
+        <div style={{ marginTop: "20px", padding: "15px", background: "#f9f9f9", borderRadius: "4px" }}>
+          <h3 style={{ color: "#333" }}>Explanation:</h3>
+          <p style={{ color: "#555" }}>{explanation}</p>
         </div>
       )}
 
