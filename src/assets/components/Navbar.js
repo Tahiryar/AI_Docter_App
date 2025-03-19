@@ -114,6 +114,29 @@ function Navbar() {
             Contact
           </Link>
         </li>
+        {/* Add Login and Signup Links */}
+        <li style={{ margin: "0 15px" }}>
+          <Link
+            to="/login"
+            style={{
+              color: location.pathname === "/login" ? "#ffdd57" : "white",
+              textDecoration: "none",
+            }}
+          >
+            Login
+          </Link>
+        </li>
+        <li style={{ margin: "0 15px" }}>
+          <Link
+            to="/signup"
+            style={{
+              color: location.pathname === "/signup" ? "#ffdd57" : "white",
+              textDecoration: "none",
+            }}
+          >
+            Signup
+          </Link>
+        </li>
       </ul>
 
       {/* Search Bar */}
